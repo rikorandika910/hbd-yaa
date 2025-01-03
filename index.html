@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            overflow-x: hidden;
+            color: #333;
+            
+        }
+
+        .container {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        .message {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .message p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 1rem;
+            color: #fff;
+            background: #ff6f61;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #ff4e42;
+        }
+
+        #replyForm {
+            display: none; /* Form disembunyikan secara default */
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #replyForm input, #replyForm textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        #replyForm button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            background: #ff6f61;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            align-self: center;
+        }
+
+        #replyForm button:hover {
+            background: #ff4e42;
+        }
+
+        #replyForm h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+            color: #333;
+        }
+
+        .photo-container {
+    position: relative;
+    display: inline-block;
+}
+
+.main-photo {
+    width: 20%;
+    height: auto;
+    border-radius: 50%;
+    border: 5px solid #37dc00;
+}
+
+.star {
+    position: absolute; /* Ubah dari 'none' menjadi 'absolute' */
+    top: 10px; /* Atur ke atas foto */
+    bottom: 10px;
+    right: 10px; /* Atur ke kanan foto */
+    left: 200px;
+    width: 50px;
+    z-index: 10; /* Pastikan elemen berada di atas */
+    transform: translate(50%, -50%); /* Sedikit pergeseran untuk efek lebih rapi */
+}
+
+/* Media query untuk layar kecil */
+@media (max-width: 768px) {
+    .star {
+        top: 0; /* Tetap di atas */
+        right: 0; /* Tetap di kanan */
+    }
+}
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: 10% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .music-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .album-cover {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+
+        .music-info {
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .music-info h2 {
+            margin: 5px 0;
+            font-size: 24px;
+            color: #555;
+        }
+
+        .music-info p {
+            margin: 5px 0;
+            font-size: 18px;
+            color: #555;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Happy Birthday!</h1>
+        <h2>Will You All the Best!</h2>
+        <div class="message">
+            <br>
+            <div class="photo-container">
+                <img src="WhatsApp Image 2024-03-14 at 14.44.48_34c35e04.jpg" alt="Foto Rara Cantik" class="main-photo" id="openModal">
+                <img src="str.png" alt="Bintang" class="star">
+            </div>
+            <img src="up-arrow.png" alt="Up Arrow" style="width: 8%; height: auto; display: flex; margin-left: auto; margin-right: auto;">
+            <div class="overlay-text" style="font-weight: lighter;">Lihat Status Saya</div>
+            <p>Untuk Syeirach Aulia<span><img src="love.png" alt="" style="width: 25px; height: auto; margin-bottom: -5px;"></span></p>
+            <p>hari ini adalah hari yang begitu istimewa, karena dunia merayakan dirimu. terima kasih telah hadir dalam hidupku, memberi kebahagiaan yang tak ada habisnya. senyumanmu, kecantikanmu, dan kebaikan hatimu adalah anugerah yang tak ternilai.</p>
+            <div class="music-container">
+                <!-- Gambar Album -->
+                <img src="download (4).jpeg" alt="Album Cover" class="album-cover">
+        
+                <!-- Info Musik -->
+                <div class="music-info">
+                    <h2>Judul Lagu: Anugerah Terindah</h2>
+                    <p>Artis: Andmesh Kamaleng</p>
+                </div>
+        
+                <!-- Elemen Audio dengan Kontrol -->
+                <audio controls>
+                    <source src="kamelang.mp3" type="audio/mp3">
+                    Browser Anda tidak mendukung elemen audio.
+                </audio>
+            </div>
+            <p>semoga setiap langkahmu selalu dipenuhi dengan kebahagiaan, tawa yang tulus, dan cinta yang tak terhingga. aku merasa sangat beruntung bisa memiliki kesempatan untuk mencintaimu, untuk selalu berada di sampingmu, dan merayakan hidup bersamamu.</p>
+            <p>selamat ulang tahun, semoga hari-harimu selalu dipenuhi dengan kebahagiaan. dirimu adalah keindahan yang tak pernah aku bayangkan sebelumnya, dan aku akan selalu bersyukur atas kehadiranmu.</p>
+        </div>
+        <button id="toggleFormButton" class="button">Kirim Balasan</button>
+
+        <form id="replyForm">
+            <h3>Kirim Pesan Balasan kepada Pembuat</h3>
+            <input type="text" id="name" placeholder="Nama kamu" required>
+            <textarea id="message" rows="4" placeholder="Pesan kamu" required></textarea>
+            <button type="submit">Kirim Balasan</button>
+        </form>
+    </div>
+        <!-- Modal Popup -->
+        <div id="videoModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" id="closeModal">&times;</span>
+                <video width="100%" controls>
+                    <source src="vs.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+
+    <script>
+        // Pastikan form tersembunyi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            const replyForm = document.getElementById('replyForm');
+            replyForm.style.display = 'none';
+        });
+    
+        // Toggle visibility of the reply form
+        const toggleFormButton = document.getElementById('toggleFormButton');
+        const replyForm = document.getElementById('replyForm');
+    
+        toggleFormButton.addEventListener('click', () => {
+            if (replyForm.style.display === 'none' || replyForm.style.display === '') {
+                replyForm.style.display = 'flex';
+            } else {
+                replyForm.style.display = 'none';
+            }
+        });
+    
+        // WhatsApp integration
+        document.getElementById('replyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+    
+            const name = document.getElementById('name').value;
+            const message = document.getElementById('message').value;
+            const whatsappNumber = '6288261927112'; // Replace with your WhatsApp number
+    
+            const whatsappLink = `https://wa.me/${6288261927112}?text=${encodeURIComponent(`Saya sebagai ${name}, Pesan Balasan :\n\n${message}`)}`;
+    
+            window.open(whatsappLink, '_blank');
+        });
+        const modal = document.getElementById('videoModal');
+const openModal = document.getElementById('openModal');
+const closeModal = document.getElementById('closeModal');
+const mainPhoto = document.getElementById('openModal');  // Gambar yang border-nya akan diubah
+const video = document.querySelector('video');  // Video element
+const overlayText = document.querySelector('.overlay-text');  // Teks overlay yang akan diubah
+
+// Menambahkan event listener pada gambar
+openModal.addEventListener('click', () => {
+    // Menampilkan modal (video)
+    modal.style.display = 'block';
+    
+    // Mengubah border gambar menjadi abu-abu setelah diklik
+    mainPhoto.style.borderColor = '#ccc';
+    
+    // Mengubah teks overlay menjadi "Cantikkan Dia?"
+    overlayText.textContent = 'Cantik ayi kan dia?';  // Mengubah teks
+});
+
+// Menutup modal ketika tombol close diklik
+closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+// Menutup modal jika area luar modal diklik
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
+
+
+    </script>
+    <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: center;">&copy; 2025 Riko Randika</p>
+    <div class="love" style="display: flex;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+        <img src="love.png" alt="" style="width: 50px; height: auto;">
+    </div>
+</body>
+</html>
